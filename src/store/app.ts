@@ -15,7 +15,7 @@ const STORAGE_KEY = {
 const rootEl = document.querySelector('html');
 
 const defaultClashAPIConfig = {
-  baseURL: document.getElementById('app')?.getAttribute('data-base-url') ?? 'http://127.0.0.1:9090',
+  baseURL: document.location.origin,
   secret: '',
   addedAt: 0,
 };

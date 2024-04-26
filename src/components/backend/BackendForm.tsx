@@ -14,7 +14,7 @@ const { useState, useRef, useCallback } = React;
 const Ok = 0;
 
 export function BackendForm() {
-  const [baseURL, setBaseURL] = useState('');
+  const [baseURL, setBaseURL] = useState(document.location.origin);
   const [secret, setSecret] = useState('');
   const [metaLabel, setMetaLabel] = useState('');
   const [errMsg, setErrMsg] = useState('');
@@ -85,7 +85,7 @@ export function BackendForm() {
               name="baseURL"
               label="API Base URL"
               type="text"
-              placeholder="http://127.0.0.1:9090"
+              placeholder="http://<host>:<port>"
               value={baseURL}
               onChange={handleInputOnChange}
             />

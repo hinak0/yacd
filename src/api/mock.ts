@@ -80,19 +80,3 @@ async function deserializeError() {
 function sleep(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
-
-function makeConfig() {
-  return {
-    port: 0,
-    'socks-port': 7891,
-    'redir-port': 0,
-    'tproxy-port': 0,
-    'mixed-port': 7890,
-    'allow-lan': true,
-    'bind-address': '*',
-    mode: 'rule',
-    'log-level': 'info',
-    authentication: [],
-    ipv6: false,
-  };
-}
