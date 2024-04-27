@@ -43,25 +43,11 @@ export function BackendList() {
     async (conf: ClashAPIConfig) => {
       const idx = findClashAPIConfigIndex(apiConfigs, conf);
       const { url, init } = getURLAndInit(apiConfigs[idx]);
-      let res: Response;
       try {
-        res = await req(url, init);
+        await req(url, init);
       } catch (err) {
         console.log(err);
         toast.error('Failed to connect');
-        return;
-      }
-      let data: { hello: unknown };
-      try {
-        data = await res.json();
-      } catch (err) {
-        console.log(err);
-        toast.error('Unexpected response');
-        return;
-      }
-      if (typeof data['hello'] !== 'string') {
-        console.log('Response:', data);
-        toast.error('Unexpected response');
         return;
       }
       if (currIdx === idx) {
@@ -91,7 +77,7 @@ export function BackendList() {
               key={item.baseURL + item.secret + item.metaLabel}
             >
               <Item
-                disableRemove={idx === currIdx}
+                disableRemove={false}
                 conf={item}
                 onRemove={removeClashAPIConfig}
                 onSelect={onSelect}

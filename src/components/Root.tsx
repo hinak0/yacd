@@ -5,7 +5,7 @@ import cx from 'clsx';
 import { useAtom } from 'jotai';
 import * as React from 'react';
 import { ErrorBoundary, ErrorBoundaryProps } from 'react-error-boundary';
-import { RouteObject } from 'react-router';
+import { RouteObject, useNavigate } from 'react-router';
 import { HashRouter as Router, useRoutes } from 'react-router-dom';
 import { Toaster } from 'sonner';
 import { About } from 'src/components/about/About';
@@ -15,7 +15,7 @@ import { queryClient } from 'src/misc/query';
 
 import { AppConfigSideEffect } from '$src/components/fn/AppConfigSideEffect';
 import { ENDPOINT } from '$src/misc/constants';
-import { darkModePureBlackToggleAtom } from '$src/store/app';
+import { darkModePureBlackToggleAtom, useApiConfig } from '$src/store/app';
 
 import { actions, initialState } from '../store';
 import { Backend } from './backend/Backend';
@@ -60,6 +60,14 @@ function RouteInnerApp() {
 }
 
 function SideBarApp() {
+  const apiConfigs = useApiConfig();
+  const navigate = useNavigate();
+
+  if (!apiConfigs) {
+    navigate('/backend', { replace: true });
+    return null;
+  }
+
   return (
     <div className={s0.app}>
       <BackendBeacon />

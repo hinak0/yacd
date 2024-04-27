@@ -14,17 +14,11 @@ const STORAGE_KEY = {
 
 const rootEl = document.querySelector('html');
 
-const defaultClashAPIConfig = {
-  baseURL: document.location.origin,
-  secret: '',
-  addedAt: 0,
-};
-
 const defaultState: StateApp = {
   selectedClashAPIConfigIndex: 0,
-  clashAPIConfigs: [defaultClashAPIConfig],
+  clashAPIConfigs: [],
 
-  latencyTestUrl: 'http://www.gstatic.com/generate_204',
+  latencyTestUrl: 'https://www.gstatic.com/generate_204',
   selectedChartStyleIndex: 0,
   theme: 'dark',
 
@@ -52,14 +46,19 @@ export const hideUnavailableProxiesAtom = atom(initialState().hideUnavailablePro
 export const autoCloseOldConnsAtom = atom(initialState().autoCloseOldConns);
 export const logStreamingPausedAtom = atom(initialState().logStreamingPaused);
 
-// prettier-ignore
-export const darkModePureBlackToggleAtom = atomWithStorage(STORAGE_KEY.darkModePureBlackToggle, false);
+export const darkModePureBlackToggleAtom = atomWithStorage(
+  STORAGE_KEY.darkModePureBlackToggle,
+  true,
+);
 
 // hooks
 
 export function useApiConfig() {
   const [apiConfigs] = useAtom(clashAPIConfigsAtom);
   const [idx] = useAtom(selectedClashAPIConfigIndexAtom);
+  if (idx > apiConfigs.length - 1) {
+    return null;
+  }
   return apiConfigs[idx];
 }
 
